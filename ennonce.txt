@@ -1,0 +1,11 @@
+Créer un projet ASP.net MVC :
+	- Le projet doit être un jeu en 2 pages minimum
+		- Une page avec une interface de gestion (style ogame)
+		- Une page avec des intéractions (style coockie clicker)
+		- Les deux pages doivent être relier de manière logique suivant les intéractions voulu pour votre jeu
+	- Le projet doit au minimum être composé de 10 éléments de modèles que vous créeriez. Attention tout élément de polymorphisme ne rentre pas en ligne de compte pour les 10 éléments ils ne compte que pour 1 élément
+	- Votre projet doit gérer l'authentification, l'enregistrement et l'utilisation du jeu pour des utilisateurs
+	- Chaque utilisateur possédera ça partie
+	- Un panneau d'administration doit permettre de gérer l'ensemble des données inséré en BDD
+	- Le projet doit fonctionner avec une base "LocalDB" ou "MySQL" des points bonus seront accordé pour l'utilisation de "MySQL"
+	- Le jeu doit être fonctionnel et utilisable mais seul des points "bonus" seront accordé sur le design
