@@ -13,12 +13,13 @@ namespace AgeOfColony.Controllers
 {
     public class ResourcesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private DBManager db = new DBManager();
 
         // GET: Resources
         public async Task<ActionResult> Index()
         {
-            return View(await db.Resources.ToListAsync());
+            var resources = db.Resources.Include(r => r.RareVersion);
+            return View(await resources.ToListAsync());
         }
 
         // GET: Resources/Details/5
@@ -39,6 +40,7 @@ namespace AgeOfColony.Controllers
         // GET: Resources/Create
         public ActionResult Create()
         {
+            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name");
             return View();
         }
 
@@ -47,7 +49,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PrimaryKey,Name,RarePercentage,ImgUrl")] Resource resource)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,RarePercentage,RareResourceId,ImgUrl")] Resource resource)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +58,7 @@ namespace AgeOfColony.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareResourceId);
             return View(resource);
         }
 
@@ -71,6 +74,7 @@ namespace AgeOfColony.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareResourceId);
             return View(resource);
         }
 
@@ -79,7 +83,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PrimaryKey,Name,RarePercentage,ImgUrl")] Resource resource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,RarePercentage,RareResourceId,ImgUrl")] Resource resource)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +91,7 @@ namespace AgeOfColony.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareResourceId);
             return View(resource);
         }
 

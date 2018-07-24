@@ -234,10 +234,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LevelRequirementsController.cs" />
     <Compile Include="Controllers\MainBuildingsController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\RareResourcesController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StorageBuildingsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -247,11 +250,13 @@
     <Compile Include="Models\BaseObject.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\CollectedResource.cs" />
+    <Compile Include="Models\DBManager.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\HarvestBuilding.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LevelRequirement.cs" />
     <Compile Include="Models\MainBuilding.cs" />
+    <Compile Include="Models\ManageViewModel.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\RareResource.cs" />
     <Compile Include="Models\Resource.cs" />
@@ -349,11 +354,6 @@
     <Content Include="Views\Players\Details.cshtml" />
     <Content Include="Views\Players\Edit.cshtml" />
     <Content Include="Views\Players\Index.cshtml" />
-    <Content Include="Views\Resources\Create.cshtml" />
-    <Content Include="Views\Resources\Delete.cshtml" />
-    <Content Include="Views\Resources\Details.cshtml" />
-    <Content Include="Views\Resources\Edit.cshtml" />
-    <Content Include="Views\Resources\Index.cshtml" />
     <Content Include="Views\StorageBuildings\Create.cshtml" />
     <Content Include="Views\StorageBuildings\Delete.cshtml" />
     <Content Include="Views\StorageBuildings\Details.cshtml" />
@@ -364,6 +364,34 @@
     <Content Include="Views\RareResources\Details.cshtml" />
     <Content Include="Views\RareResources\Edit.cshtml" />
     <Content Include="Views\RareResources\Index.cshtml" />
+    <Content Include="Views\Resources\Create.cshtml" />
+    <Content Include="Views\Resources\Delete.cshtml" />
+    <Content Include="Views\Resources\Details.cshtml" />
+    <Content Include="Views\Resources\Edit.cshtml" />
+    <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

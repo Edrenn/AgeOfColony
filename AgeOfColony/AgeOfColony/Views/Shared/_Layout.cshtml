@@ -30,8 +30,10 @@
                     <li>@Html.ActionLink("MainBuildings", "Index", "MainBuildings", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Players", "Index", "Players", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Resources", "Index", "Resources", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("RareResources", "Index", "RareResources", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

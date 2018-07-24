@@ -13,7 +13,7 @@ namespace AgeOfColony.Controllers
 {
     public class CollectedResourcesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private DBManager db = new DBManager();
 
         // GET: CollectedResources
         public async Task<ActionResult> Index()
@@ -47,7 +47,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PrimaryKey,Name,Quantity")] CollectedResource collectedResource)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Quantity")] CollectedResource collectedResource)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PrimaryKey,Name,Quantity")] CollectedResource collectedResource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Quantity")] CollectedResource collectedResource)
         {
             if (ModelState.IsValid)
             {

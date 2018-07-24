@@ -13,7 +13,7 @@ namespace AgeOfColony.Controllers
 {
     public class MainBuildingsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private DBManager db = new DBManager();
 
         // GET: MainBuildings
         public async Task<ActionResult> Index()
@@ -47,7 +47,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PrimaryKey,HarvestSpeed,Name,Level,MaxLevel,ImgUrl")] MainBuilding mainBuilding)
+        public async Task<ActionResult> Create([Bind(Include = "Id,HarvestSpeed,Name,Level,MaxLevel,ImgUrl")] MainBuilding mainBuilding)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PrimaryKey,HarvestSpeed,Name,Level,MaxLevel,ImgUrl")] MainBuilding mainBuilding)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,HarvestSpeed,Name,Level,MaxLevel,ImgUrl")] MainBuilding mainBuilding)
         {
             if (ModelState.IsValid)
             {

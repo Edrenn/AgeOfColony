@@ -13,7 +13,7 @@ namespace AgeOfColony.Controllers
 {
     public class LevelRequirementsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private DBManager db = new DBManager();
 
         // GET: LevelRequirements
         public async Task<ActionResult> Index()
@@ -47,7 +47,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PrimaryKey")] LevelRequirement levelRequirement)
+        public async Task<ActionResult> Create([Bind(Include = "Id")] LevelRequirement levelRequirement)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PrimaryKey")] LevelRequirement levelRequirement)
+        public async Task<ActionResult> Edit([Bind(Include = "Id")] LevelRequirement levelRequirement)
         {
             if (ModelState.IsValid)
             {
