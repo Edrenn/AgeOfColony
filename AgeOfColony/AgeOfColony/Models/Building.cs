@@ -11,7 +11,7 @@ namespace AgeOfColony.Models
         public String Name { get; set; }
         public int Level { get; set; }
         public int MaxLevel { get; set; }
-        public Dictionary<int, LevelRequirement> Requirement { get; set; }
+        public List<LevelRequirement> Requirement { get; set; }
 
     }
 }

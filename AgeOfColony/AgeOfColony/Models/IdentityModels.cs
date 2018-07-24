@@ -23,6 +23,7 @@ namespace AgeOfColony.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            // Put code to recreate db
         }
         
         public static ApplicationDbContext Create()
@@ -45,5 +46,7 @@ namespace AgeOfColony.Models
         public System.Data.Entity.DbSet<AgeOfColony.Models.Resource> Resources { get; set; }
 
         public System.Data.Entity.DbSet<AgeOfColony.Models.StorageBuilding> StorageBuildings { get; set; }
+
+        public System.Data.Entity.DbSet<AgeOfColony.Models.RareResource> RareResources { get; set; }
     }
 }

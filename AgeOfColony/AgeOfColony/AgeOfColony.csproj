@@ -235,6 +235,7 @@
     <Compile Include="Controllers\LevelRequirementsController.cs" />
     <Compile Include="Controllers\MainBuildingsController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Controllers\RareResourcesController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\StorageBuildingsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Models\LevelRequirement.cs" />
     <Compile Include="Models\MainBuilding.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\RareResource.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\ResourceType.cs" />
     <Compile Include="Models\StorageBuilding.cs" />
@@ -357,6 +359,11 @@
     <Content Include="Views\StorageBuildings\Details.cshtml" />
     <Content Include="Views\StorageBuildings\Edit.cshtml" />
     <Content Include="Views\StorageBuildings\Index.cshtml" />
+    <Content Include="Views\RareResources\Create.cshtml" />
+    <Content Include="Views\RareResources\Delete.cshtml" />
+    <Content Include="Views\RareResources\Details.cshtml" />
+    <Content Include="Views\RareResources\Edit.cshtml" />
+    <Content Include="Views\RareResources\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

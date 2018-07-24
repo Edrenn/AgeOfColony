@@ -9,7 +9,7 @@ namespace AgeOfColony.Models
     public class Resource : ViewableObject
     {
         public String Name { get; set; }
-        public Resource RareVersion { get; set; }
+        public RareResource RareVersion { get; set; }
         public int RarePercentage { get; set; }
     }
 }
