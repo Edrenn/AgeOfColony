@@ -269,6 +269,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-Login-20180721081356.mdf" />
+    <Content Include="App_Data\aspnet-Login-20180721081356_log.ldf">
+      <DependentUpon>aspnet-Login-20180721081356.mdf</DependentUpon>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -392,10 +396,9 @@
     <Content Include="Views\CollectedResources\Details.cshtml" />
     <Content Include="Views\CollectedResources\Edit.cshtml" />
     <Content Include="Views\CollectedResources\Index.cshtml" />
+    <Content Include="Views\MainScreen\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
