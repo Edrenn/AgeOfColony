@@ -29,5 +29,7 @@ namespace AgeOfColony.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<AgeOfColony.Models.CollectedResource> CollectedResources { get; set; }
     }
 }

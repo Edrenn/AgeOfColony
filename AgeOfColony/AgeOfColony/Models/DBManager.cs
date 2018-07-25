@@ -11,7 +11,12 @@ namespace AgeOfColony.Models
         public DBManager()
     : base("GameConnection")
         {
-            // Put code to recreate db
+            this.Database.CreateIfNotExists();
+            if (!this.Database.CompatibleWithModel(false))
+            {
+                this.Database.Delete();
+                this.Database.CreateIfNotExists();
+            }
         }
 
         public static ApplicationDbContext Create()

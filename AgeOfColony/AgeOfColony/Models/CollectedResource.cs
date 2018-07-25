@@ -7,7 +7,7 @@ namespace AgeOfColony.Models
 {
     public class CollectedResource : BaseObject
     {
-        public Resource resource { get; set; }
+        public Resource Resource { get; set; }
         public int Quantity { get; set; }
 
     }

@@ -324,11 +324,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\CollectedResources\Create.cshtml" />
-    <Content Include="Views\CollectedResources\Delete.cshtml" />
-    <Content Include="Views\CollectedResources\Details.cshtml" />
-    <Content Include="Views\CollectedResources\Edit.cshtml" />
-    <Content Include="Views\CollectedResources\Index.cshtml" />
     <Content Include="Views\Games\Create.cshtml" />
     <Content Include="Views\Games\Delete.cshtml" />
     <Content Include="Views\Games\Details.cshtml" />
@@ -392,6 +387,11 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\CollectedResources\Create.cshtml" />
+    <Content Include="Views\CollectedResources\Delete.cshtml" />
+    <Content Include="Views\CollectedResources\Details.cshtml" />
+    <Content Include="Views\CollectedResources\Edit.cshtml" />
+    <Content Include="Views\CollectedResources\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

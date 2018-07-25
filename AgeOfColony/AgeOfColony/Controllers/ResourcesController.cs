@@ -41,6 +41,7 @@ namespace AgeOfColony.Controllers
         public ActionResult Create()
         {
             ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name");
+            ViewBag.Resources = new SelectList(db.Resources, "Id", "Name");
             return View();
         }
 

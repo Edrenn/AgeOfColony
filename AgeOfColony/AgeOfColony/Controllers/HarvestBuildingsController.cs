@@ -18,7 +18,8 @@ namespace AgeOfColony.Controllers
         // GET: HarvestBuildings
         public async Task<ActionResult> Index()
         {
-            return View(await db.HarvestBuildings.ToListAsync());
+            var harvestBuildings = db.HarvestBuildings.Include(r => r.TypeResource);
+            return View(await harvestBuildings.ToListAsync());
         }
 
         // GET: HarvestBuildings/Details/5
@@ -28,7 +29,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HarvestBuilding harvestBuilding = await db.HarvestBuildings.FindAsync(id);
+            HarvestBuilding harvestBuilding = await db.HarvestBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == id).FirstAsync();
             if (harvestBuilding == null)
             {
                 return HttpNotFound();
@@ -39,6 +40,8 @@ namespace AgeOfColony.Controllers
         // GET: HarvestBuildings/Create
         public ActionResult Create()
         {
+            //ViewBag.Resources = await db.Resources.ToListAsync();
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             return View();
         }
 
@@ -47,10 +50,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,Name,Level,MaxLevel,ImgUrl")] HarvestBuilding harvestBuilding)
+        public async Task<ActionResult> Create([Bind(Include = "MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,Name,Level,MaxLevel,ImgUrl")] HarvestBuilding harvestBuilding,int TypeResource)
         {
             if (ModelState.IsValid)
             {
+                harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
                 db.HarvestBuildings.Add(harvestBuilding);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -66,7 +70,9 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HarvestBuilding harvestBuilding = await db.HarvestBuildings.FindAsync(id);
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
+            HarvestBuilding harvestBuilding = await db.HarvestBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == id).FirstAsync();
+            harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == harvestBuilding.TypeResource.Id).First();
             if (harvestBuilding == null)
             {
                 return HttpNotFound();
@@ -79,10 +85,12 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,Name,Level,MaxLevel,ImgUrl")] HarvestBuilding harvestBuilding)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,ResourceId,Name,Level,MaxLevel,ImgUrl")] HarvestBuilding harvestBuilding)
         {
             if (ModelState.IsValid)
             {
+
+                //harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == harvestBuilding.ResourceId).First();
                 db.Entry(harvestBuilding).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -97,7 +105,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HarvestBuilding harvestBuilding = await db.HarvestBuildings.FindAsync(id);
+            HarvestBuilding harvestBuilding = await db.HarvestBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == id).FirstAsync();
             if (harvestBuilding == null)
             {
                 return HttpNotFound();
