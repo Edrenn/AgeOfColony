@@ -12,6 +12,7 @@ namespace AgeOfColony.Models
         public int Level { get; set; }
         public int MaxLevel { get; set; }
         public List<LevelRequirement> Requirement { get; set; }
+        public bool isBought { get; set; }
 
     }
 }
