@@ -8,11 +8,9 @@ namespace AgeOfColony.Models
 {
     public class MainBuilding : Building
     {
-        public Resource TypeRessource { get; set; }
+        public Resource TypeResource { get; set; }
         public float HarvestSpeed { get; set; }
-
-        [ForeignKey("TypeRessource")]
-        public int ResourceId { get; set; }
+        
 
     }
 }
