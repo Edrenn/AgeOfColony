@@ -12,8 +12,6 @@ namespace AgeOfColony.Models
         public String Name { get; set; }
         public int RarePercentage { get; set; }
 
-        [ForeignKey("RareVersion")]
-        public int RareResourceId { get; set; }
         public RareResource RareVersion { get; set; }
     }
 }

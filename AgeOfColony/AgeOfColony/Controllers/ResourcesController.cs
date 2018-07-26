@@ -29,7 +29,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resource resource = await db.Resources.FindAsync(id);
+            Resource resource = await db.Resources.Include(r => r.RareVersion).Where(rc => rc.Id == id).FirstAsync();
             if (resource == null)
             {
                 return HttpNotFound();
@@ -41,7 +41,6 @@ namespace AgeOfColony.Controllers
         public ActionResult Create()
         {
             ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name");
-            ViewBag.Resources = new SelectList(db.Resources, "Id", "Name");
             return View();
         }
 
@@ -50,16 +49,16 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,RarePercentage,RareResourceId,ImgUrl")] Resource resource)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,RarePercentage,ImgUrl")] Resource resource, int RareResourceId)
         {
             if (ModelState.IsValid)
             {
+                resource.RareVersion = db.RareResources.Where(r => r.Id == RareResourceId).First();
                 db.Resources.Add(resource);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareResourceId);
+            
             return View(resource);
         }
 
@@ -75,7 +74,7 @@ namespace AgeOfColony.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareResourceId);
+            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareVersion);
             return View(resource);
         }
 
@@ -92,7 +91,7 @@ namespace AgeOfColony.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareResourceId);
+            ViewBag.RareResourceId = new SelectList(db.RareResources, "Id", "Name", resource.RareVersion);
             return View(resource);
         }
 
@@ -103,7 +102,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Resource resource = await db.Resources.FindAsync(id);
+            Resource resource = await db.Resources.Include(r => r.RareVersion).Where(r => r.Id == id).FirstAsync();
             if (resource == null)
             {
                 return HttpNotFound();
