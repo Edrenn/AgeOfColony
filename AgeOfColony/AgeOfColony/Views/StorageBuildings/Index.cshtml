@@ -24,6 +24,9 @@
             @Html.DisplayNameFor(model => model.MaxLevel)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.isBought)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ImgUrl)
         </th>
         <th></th>
@@ -44,12 +47,15 @@
             @Html.DisplayFor(modelItem => item.MaxLevel)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.isBought)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ImgUrl)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

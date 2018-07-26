@@ -39,6 +39,7 @@ namespace AgeOfColony.Controllers
         // GET: StorageBuildings/Create
         public ActionResult Create()
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             return View();
         }
 
@@ -47,10 +48,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,ImgUrl")] StorageBuilding storageBuilding)
+        public async Task<ActionResult> Create([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
         {
             if (ModelState.IsValid)
             {
+                storageBuilding.TypeRessource = db.Resources.Where(r => r.Id == TypeResource).First();
                 db.StorageBuildings.Add(storageBuilding);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -66,7 +68,8 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StorageBuilding storageBuilding = await db.StorageBuildings.FindAsync(id);
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
+            StorageBuilding storageBuilding = await db.StorageBuildings.Include(sb => sb.TypeRessource).Where(sb => sb.Id == id).FirstAsync();
             if (storageBuilding == null)
             {
                 return HttpNotFound();

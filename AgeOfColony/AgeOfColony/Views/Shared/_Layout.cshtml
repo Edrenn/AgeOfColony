@@ -21,16 +21,30 @@
                 @Html.ActionLink("Nom de l'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("CollectedResources", "Index", "CollectedResources", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Games", "Index", "Games", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("HarvestBuildings", "Index", "HarvestBuildings", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("LevelRequirements", "Index", "LevelRequirements", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("MainBuildings", "Index", "MainBuildings", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Players", "Index", "Players", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Resources", "Index", "Resources", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("RareResources", "Index", "RareResources", new { area = "" }, null)</li>
-                </ul>
+            <li>@Html.ActionLink("CollectedResources", "Index", "CollectedResources", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Games", "Index", "Games", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("LevelRequirements", "Index", "LevelRequirements", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Players", "Index", "Players", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Resources", "Index", "Resources", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("RareResources", "Index", "RareResources", new { area = "" }, null)</li>
+        </ul>
+                <!-- Split button -->
+                <div class="btn-group">
+                    <!-- here is the asp.net button to make post back -->
+                    @*<asp:Button ID="Button1" runat="server" Text="OUIIIIIIIIII"/>*@
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("HarvestBuildings", "Index", "HarvestBuildings", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("MainBuildings", "Index", "MainBuildings", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("StorageBuildings", "Index", "StorageBuildings", new { area = "" }, null)</li>
+                    </ul>
+                </div>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
