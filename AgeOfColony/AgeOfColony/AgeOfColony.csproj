@@ -391,12 +391,13 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\MainScreen\Index.cshtml" />
+    <Content Include="Views\GameHome\Index.cshtml" />
     <Content Include="Views\CollectedResources\Create.cshtml" />
     <Content Include="Views\CollectedResources\Delete.cshtml" />
     <Content Include="Views\CollectedResources\Details.cshtml" />
     <Content Include="Views\CollectedResources\Edit.cshtml" />
     <Content Include="Views\CollectedResources\Index.cshtml" />
-    <Content Include="Views\MainScreen\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

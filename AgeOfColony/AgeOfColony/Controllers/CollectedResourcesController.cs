@@ -18,7 +18,8 @@ namespace AgeOfColony.Controllers
         // GET: CollectedResources
         public async Task<ActionResult> Index()
         {
-            return View(await db.CollectedResources.ToListAsync());
+            var collectedResources = db.CollectedResources.Include(cr => cr.Resource);
+            return View(await collectedResources.ToListAsync());
         }
 
         // GET: CollectedResources/Details/5
