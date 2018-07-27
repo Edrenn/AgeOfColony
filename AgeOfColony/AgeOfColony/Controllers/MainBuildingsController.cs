@@ -16,9 +16,10 @@ namespace AgeOfColony.Controllers
         private DBManager db = new DBManager();
 
         // GET: MainBuildings
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.MainBuildings.ToListAsync());
+            var mainBuildings = db.MainBuildings.Include(r => r.TypeResource);
+            return View(mainBuildings.ToList());
         }
 
         // GET: MainBuildings/Details/5
@@ -28,7 +29,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MainBuilding mainBuilding = await db.MainBuildings.FindAsync(id);
+            MainBuilding mainBuilding = await db.MainBuildings.Include(a => a.TypeResource).Where(a => a.Id == id).FirstAsync();
             if (mainBuilding == null)
             {
                 return HttpNotFound();
@@ -39,6 +40,7 @@ namespace AgeOfColony.Controllers
         // GET: MainBuildings/Create
         public ActionResult Create()
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             return View();
         }
 
@@ -47,10 +49,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,HarvestSpeed,Name,Level,MaxLevel,ImgUrl")] MainBuilding mainBuilding)
+        public async Task<ActionResult> Create([Bind(Include = "HarvestSpeed,Name,Level,MaxLevel,ResourceId,isBought,ImgUrl")] MainBuilding mainBuilding, int TypeResource)
         {
             if (ModelState.IsValid)
             {
+                mainBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
                 db.MainBuildings.Add(mainBuilding);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -66,7 +69,8 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MainBuilding mainBuilding = await db.MainBuildings.FindAsync(id);
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
+            MainBuilding mainBuilding = await db.MainBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == id).FirstAsync();
             if (mainBuilding == null)
             {
                 return HttpNotFound();
@@ -79,10 +83,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,HarvestSpeed,Name,Level,MaxLevel,ImgUrl")] MainBuilding mainBuilding)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,HarvestSpeed,Name,Level,MaxLevel,isBought,ImgUrl")] MainBuilding mainBuilding, int TypeResource)
         {
             if (ModelState.IsValid)
             {
+                mainBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
                 db.Entry(mainBuilding).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -97,7 +102,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MainBuilding mainBuilding = await db.MainBuildings.FindAsync(id);
+            MainBuilding mainBuilding = await db.MainBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == id).FirstAsync();
             if (mainBuilding == null)
             {
                 return HttpNotFound();
