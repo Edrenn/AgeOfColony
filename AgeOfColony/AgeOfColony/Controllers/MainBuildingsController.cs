@@ -87,9 +87,12 @@ namespace AgeOfColony.Controllers
         {
             if (ModelState.IsValid)
             {
-                mainBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
-                db.Entry(mainBuilding).State = EntityState.Modified;
+                MainBuilding realHB = await db.MainBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == mainBuilding.Id).FirstAsync();
+                db.Resources.Attach(realHB.TypeResource);
+                db.Entry(realHB).CurrentValues.SetValues(mainBuilding);
+                realHB.TypeResource = db.Resources.Include(r => r.RareVersion).Where(r => r.Id == TypeResource).First();
                 await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
             return View(mainBuilding);
