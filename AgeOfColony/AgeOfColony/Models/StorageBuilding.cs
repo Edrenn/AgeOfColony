@@ -7,7 +7,7 @@ namespace AgeOfColony.Models
 {
     public class StorageBuilding : Building
     {
-        public Resource TypeRessource { get; set; }
+        public Resource TypeResource { get; set; }
         public int MaxStorage { get; set; }
     }
 }

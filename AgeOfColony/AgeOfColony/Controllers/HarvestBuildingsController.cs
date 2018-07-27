@@ -83,12 +83,10 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,ResourceId,Name,Level,MaxLevel,ImgUrl")] HarvestBuilding harvestBuilding)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,ResourceId,Name,Level,MaxLevel,isBought,ImgUrl")] HarvestBuilding harvestBuilding)
         {
             if (ModelState.IsValid)
             {
-
-                //harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == harvestBuilding.ResourceId).First();
                 db.Entry(harvestBuilding).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

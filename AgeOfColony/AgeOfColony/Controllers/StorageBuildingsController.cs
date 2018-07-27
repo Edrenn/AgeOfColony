@@ -18,7 +18,8 @@ namespace AgeOfColony.Controllers
         // GET: StorageBuildings
         public async Task<ActionResult> Index()
         {
-            return View(await db.StorageBuildings.ToListAsync());
+            var storagesBuildings = db.StorageBuildings.Include(sb => sb.TypeResource);
+            return View(await storagesBuildings.ToListAsync());
         }
 
         // GET: StorageBuildings/Details/5
@@ -28,7 +29,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StorageBuilding storageBuilding = await db.StorageBuildings.FindAsync(id);
+            StorageBuilding storageBuilding = await db.StorageBuildings.Include(sb => sb.TypeResource).Where(sb => sb.Id == id).FirstAsync();
             if (storageBuilding == null)
             {
                 return HttpNotFound();
@@ -48,11 +49,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
+        public async Task<ActionResult> Create([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,isBought,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
         {
             if (ModelState.IsValid)
             {
-                storageBuilding.TypeRessource = db.Resources.Where(r => r.Id == TypeResource).First();
+                storageBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
                 db.StorageBuildings.Add(storageBuilding);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -69,7 +70,7 @@ namespace AgeOfColony.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
-            StorageBuilding storageBuilding = await db.StorageBuildings.Include(sb => sb.TypeRessource).Where(sb => sb.Id == id).FirstAsync();
+            StorageBuilding storageBuilding = await db.StorageBuildings.Include(sb => sb.TypeResource).Where(sb => sb.Id == id).FirstAsync();
             if (storageBuilding == null)
             {
                 return HttpNotFound();
@@ -82,10 +83,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,ImgUrl")] StorageBuilding storageBuilding)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,isBought,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
         {
             if (ModelState.IsValid)
             {
+                storageBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
                 db.Entry(storageBuilding).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -100,7 +102,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            StorageBuilding storageBuilding = await db.StorageBuildings.FindAsync(id);
+            StorageBuilding storageBuilding = await db.StorageBuildings.Include(st => st.TypeResource).Where(hb => hb.Id == id).FirstAsync();
             if (storageBuilding == null)
             {
                 return HttpNotFound();

@@ -24,6 +24,9 @@
             @Html.DisplayNameFor(model => model.MaxLevel)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TypeResource)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.isBought)
         </th>
         <th>
@@ -45,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MaxLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeResource.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.isBought)
