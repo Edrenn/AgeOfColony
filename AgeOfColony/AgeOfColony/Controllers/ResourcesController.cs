@@ -83,11 +83,16 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,RarePercentage,RareResourceId,ImgUrl")] Resource resource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,RarePercentage,RareResourceId,ImgUrl")] Resource resource,int RareResourceId)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(resource).State = EntityState.Modified;
+                
+                Resource realR = await db.Resources.Include(r => r.RareVersion).Where(r => r.Id == resource.Id).FirstAsync();
+                db.RareResources.Attach(realR.RareVersion);
+                db.Entry(realR).CurrentValues.SetValues(resource);
+                realR.RareVersion = db.RareResources.Where(r => r.Id == RareResourceId).First();
+
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

@@ -87,10 +87,12 @@ namespace AgeOfColony.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
-                db.Entry(harvestBuilding).State = EntityState.Modified;
+                HarvestBuilding realHB = await db.HarvestBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == harvestBuilding.Id).FirstAsync();
+                db.Resources.Attach(realHB.TypeResource);
+                db.Entry(realHB).CurrentValues.SetValues(harvestBuilding);
+                realHB.TypeResource = db.Resources.Include(r => r.RareVersion).Where(r => r.Id == TypeResource).First();
                 await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
             return View(harvestBuilding);
