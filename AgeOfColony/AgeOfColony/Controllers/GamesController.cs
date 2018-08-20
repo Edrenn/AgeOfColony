@@ -51,11 +51,17 @@ namespace AgeOfColony.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Building> buildings = new List<Building>();
+                buildings.AddRange(db.HarvestBuildings.Where(r => r.ParentGame == null));
+                buildings.AddRange(db.MainBuildings.Where(r => r.ParentGame == null));
+                buildings.AddRange(db.StorageBuildings.Where(r => r.ParentGame == null));
+                game.AllBuildings = buildings;
                 db.Games.Add(game);
                 await db.SaveChangesAsync();
+                ViewBag.BuildingList = buildings;
                 return RedirectToAction("Index");
             }
-
+            
             return View(game);
         }
 
