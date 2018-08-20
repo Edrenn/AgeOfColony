@@ -51,6 +51,25 @@
             </div>
         </div>
     </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RequiredResources, "Resource", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CollectedResourcesList", null, htmlAttributes: new { @class = "form-control", @id = "collectedResourcesList"})
+            @Html.ValidationMessageFor(model => model.RequiredResources, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <input id="collectedResourcesText" type="text" class="hidden" name="requiredResources" />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
