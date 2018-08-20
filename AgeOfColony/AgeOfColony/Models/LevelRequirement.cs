@@ -9,5 +9,6 @@ namespace AgeOfColony.Models
     public class LevelRequirement : BaseObject
     {
         public List<CollectedResource> RequiredResources { get; set; }
+        public int Level { get; set; }
     }
 }

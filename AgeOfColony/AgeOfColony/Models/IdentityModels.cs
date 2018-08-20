@@ -31,5 +31,7 @@ namespace AgeOfColony.Models
         }
 
         public System.Data.Entity.DbSet<AgeOfColony.Models.CollectedResource> CollectedResources { get; set; }
+
+        public System.Data.Entity.DbSet<AgeOfColony.Models.LevelRequirement> LevelRequirements { get; set; }
     }
 }
