@@ -253,6 +253,7 @@
     <Compile Include="Models\CollectedResource.cs" />
     <Compile Include="Models\DBManager.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameModel.cs" />
     <Compile Include="Models\HarvestBuilding.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LevelRequirement.cs" />

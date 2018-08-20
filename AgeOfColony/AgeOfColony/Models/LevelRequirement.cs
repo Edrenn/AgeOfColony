@@ -10,5 +10,16 @@ namespace AgeOfColony.Models
     {
         public List<CollectedResource> RequiredResources { get; set; }
         public int Level { get; set; }
+
+        public LevelRequirement(int level, List<CollectedResource> requiredResources)
+        {
+            RequiredResources = requiredResources;
+            Level = level;
+        }
+
+        public LevelRequirement()
+        {
+
+        }
     }
 }

@@ -8,5 +8,15 @@ namespace AgeOfColony.Models
     public class RareResource : ViewableObject
     {
         public String Name { get; set; }
+
+        public RareResource(string name)
+        {
+            Name = name;
+        }
+
+        public RareResource()
+        {
+
+        }
     }
 }

@@ -16,40 +16,40 @@ namespace AgeOfColony.Models
             {
                 this.Database.Delete();
                 this.Database.CreateIfNotExists();
-                // Rare Resources
-                RareResource boBois = new RareResource() { Name = "DuBoBois" };
-                this.RareResources.Add(boBois);
-                RareResource boFer = new RareResource() { Name = "DuBoFer" };
-                this.RareResources.Add(boFer);
-                RareResource boPierre = new RareResource() { Name = "DuBoPierre" };
-                this.RareResources.Add(boPierre);
-                // Resources
-                Resource bois = new Resource() { Name = "Bois", RarePercentage = 1, RareVersion = boBois };
-                this.Resources.Add(bois);
-                Resource fer = new Resource() { Name = "Fer", RarePercentage = 1, RareVersion = boFer };
-                this.Resources.Add(bois);
-                Resource pierre = new Resource() { Name = "Pierre", RarePercentage = 1, RareVersion = boPierre };
-                this.Resources.Add(bois);
-                // Collected Resource
-                CollectedResource cr1 = new CollectedResource() { Resource = bois, Quantity = 100 };
-                // Level Requirement
-                LevelRequirement lr = new LevelRequirement() { Level = 1, RequiredResources = new List<CollectedResource>() { cr1 } };
-                // HarvestBuilder
-                HarvestBuilding hb = new HarvestBuilding()
-                {
-                    Name = "Syrie",
-                    CurrentPeople = 0,
-                    HarvestQuantity = 1,
-                    HarvestTime = 1,
-                    ImgUrl = "",
-                    isBought = false,
-                    Level = 1,
-                    MaxLevel = 20,
-                    MaxPeople = 10,
-                    MaxStorage = 100,
-                    TypeResource = bois,
-                    Requirement = new List<LevelRequirement>() { lr }
-                };
+                //// Rare Resources
+                //RareResource boBois = new RareResource("DuBoBois");
+                //this.RareResources.Add(boBois);
+                //RareResource boFer = new RareResource("DuBoFer");
+                //this.RareResources.Add(boFer);
+                //RareResource boPierre = new RareResource("DuBoPierre");
+                //this.RareResources.Add(boPierre);
+                //// Resources
+                //Resource bois = new Resource() { Name = , RarePercentage = 1, RareVersion = boBois };
+                //this.Resources.Add(bois);
+                //Resource fer = new Resource() { Name = "Fer", RarePercentage = 1, RareVersion = boFer };
+                //this.Resources.Add(bois);
+                //Resource pierre = new Resource() { Name = "Pierre", RarePercentage = 1, RareVersion = boPierre };
+                //this.Resources.Add(bois);
+                //// Collected Resource
+                //CollectedResource cr1 = new CollectedResource() { Resource = bois, Quantity = 100 };
+                //// Level Requirement
+                //LevelRequirement lr = new LevelRequirement() { Level = 1, RequiredResources = new List<CollectedResource>() { cr1 } };
+                //// HarvestBuilder
+                //HarvestBuilding hb = new HarvestBuilding()
+                //{
+                //    Name = "Syrie",
+                //    CurrentPeople = 0,
+                //    HarvestQuantity = 1,
+                //    HarvestTime = 1,
+                //    ImgUrl = "",
+                //    isBought = false,
+                //    Level = 1,
+                //    MaxLevel = 20,
+                //    MaxPeople = 10,
+                //    MaxStorage = 100,
+                //    TypeResource = bois,
+                //    Requirement = new List<LevelRequirement>() { lr }
+                //};
             }
         }
 

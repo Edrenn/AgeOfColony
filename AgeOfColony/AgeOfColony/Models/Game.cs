@@ -10,5 +10,16 @@ namespace AgeOfColony.Models
     {
         public List<Building> AllBuildings { get; set; }
         public List<CollectedResource> AllRessources { get; set; }
+
+        public Game(List<Building> allBuildings, List<CollectedResource> allRessources)
+        {
+            AllBuildings = allBuildings;
+            AllRessources = allRessources;
+        }
+
+        public Game()
+        {
+
+        }
     }
 }

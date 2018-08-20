@@ -10,7 +10,19 @@ namespace AgeOfColony.Models
     {
         public Resource TypeResource { get; set; }
         public float HarvestSpeed { get; set; }
-        
+        public float HarvestSpeedCoef { get; set; }
 
+        public MainBuilding(string name, int level, int maxLevel, bool isBought, Resource typeResource, float harvestSpeed,float harvestSpeedCoef, List<LevelRequirement> requirements = null)
+            : base(name,level,maxLevel, requirements, isBought)
+        {
+            TypeResource = typeResource;
+            HarvestSpeed = harvestSpeed;
+            HarvestSpeedCoef = harvestSpeedCoef;
+        }
+
+        public MainBuilding()
+        {
+
+        }
     }
 }
