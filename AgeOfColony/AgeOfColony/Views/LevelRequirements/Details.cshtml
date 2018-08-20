@@ -25,12 +25,16 @@
             @Html.DisplayFor(model => model.RequiredResources)
         </dd>
 
-        @*@foreach (var item in Model.RequiredResources)
-        {
-            <dd>
-                @Html.DisplayFor(item.Resource)
-            </dd>
-        }*@
+        @foreach (var item in Model.RequiredResources)
+    {
+        <dd>
+            @Html.DisplayFor(model => item.Quantity)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => item.Resource.Name)
+        </dd>
+}
 
     </dl>
 </div>

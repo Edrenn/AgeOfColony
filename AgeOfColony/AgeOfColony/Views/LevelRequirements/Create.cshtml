@@ -1,4 +1,6 @@
-﻿@model AgeOfColony.Models.LevelRequirement
+﻿@using AgeOfColony.Models;
+@model AgeOfColony.Models.LevelRequirement
+
 
 @{
     ViewBag.Title = "Create";
@@ -20,6 +22,33 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.Level, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RequiredResources, "Resource", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (CollectedResource item in ViewBag.CollectedResourcesList)
+                {
+                    <div class="col-md-10">
+                        <input name="resource" type="checkbox" value="@item.Id" /><label>@item.ToString()</label>
+                    </div>
+                }
+                @Html.ValidationMessageFor(model => model.RequiredResources, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <input id="collectedResourcesText" type="text" class="hidden" name="requiredResources" />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
 
@@ -50,8 +79,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script language="javascript" type="text/javascript">
-        $("#collectedResourcesList").change(function () {
-            $("#collectedResourcesText").val($("#collectedResourcesText").val() + "," + $(this).val());
-        });
+
+        var vals = $("input[name=resource]:checked").map(function (i, cb) {
+            $("#collectedResourcesText").val(vals);
+            return $(cb).val();
+        }).get();
     </script>
 }
