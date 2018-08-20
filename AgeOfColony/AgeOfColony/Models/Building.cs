@@ -10,7 +10,9 @@ namespace AgeOfColony.Models
     public abstract class Building : ViewableObject
     {
         public String Name { get; set; }
+        [Range(0, 5)]
         public int Level { get; set; }
+        [Range(5,5)]
         public int MaxLevel { get; set; }
         public List<LevelRequirement> Requirement { get; set; }
         public bool isBought { get; set; }

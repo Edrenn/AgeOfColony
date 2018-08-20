@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -8,13 +9,22 @@ namespace AgeOfColony.Models
 {
     public class HarvestBuilding : Building
     {
+
+        [Range(10,1000)]
         public int MaxStorage { get; set; }
+        [Range(10,40)]
         public int StorageCoef { get; set; }
+        [Range(10,30)]
         public float HarvestTime { get; set; }
+        [Range(10, 30)]
         public int HarvestQuantity { get; set; }
+        [Range(10,30)]
         public int HarvestQuantityCoef { get; set; }
+        [Range(0,10)]
         public int CurrentPeople { get; set; }
+        [Range(10, 30)]
         public int MaxPeople { get; set; }
+        [Range(10, 30)]
         public int MaxPeopleCoef { get; set; }
 
         public Resource TypeResource { get; set; }
