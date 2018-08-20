@@ -13,7 +13,7 @@ namespace AgeOfColony.Controllers
 {
     public class CollectedResourcesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private DBManager db = new DBManager();
 
         // GET: CollectedResources
         public async Task<ActionResult> Index()
@@ -29,7 +29,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CollectedResource collectedResource = await db.CollectedResources.FindAsync(id);
+            CollectedResource collectedResource = await db.CollectedResources.Include(cr => cr.Resource).Where(cr => cr.Id == id).FirstAsync();
             if (collectedResource == null)
             {
                 return HttpNotFound();
@@ -40,6 +40,7 @@ namespace AgeOfColony.Controllers
         // GET: CollectedResources/Create
         public ActionResult Create()
         {
+            ViewBag.Resources = new SelectList(db.Resources, "Id", "Name");
             return View();
         }
 
@@ -48,10 +49,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Quantity")] CollectedResource collectedResource)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Quantity")] CollectedResource collectedResource,int Resources)
         {
             if (ModelState.IsValid)
             {
+                collectedResource.Resource = db.Resources.Where(r => r.Id == Resources).First();
                 db.CollectedResources.Add(collectedResource);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -67,7 +69,8 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CollectedResource collectedResource = await db.CollectedResources.FindAsync(id);
+            ViewBag.Resources = new SelectList(db.Resources, "Id", "Name");
+            CollectedResource collectedResource = await db.CollectedResources.Include(cr => cr.Resource).FirstAsync();
             if (collectedResource == null)
             {
                 return HttpNotFound();
@@ -80,11 +83,15 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Quantity")] CollectedResource collectedResource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Quantity")] CollectedResource collectedResource, int Resources)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(collectedResource).State = EntityState.Modified;
+
+                CollectedResource realCR = await db.CollectedResources.Include(r => r.Resource).Where(cr => cr.Id == collectedResource.Id).FirstAsync();
+                db.Resources.Attach(realCR.Resource);
+                db.Entry(realCR).CurrentValues.SetValues(collectedResource);
+                realCR.Resource = db.Resources.Where(r => r.Id == Resources).First();
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

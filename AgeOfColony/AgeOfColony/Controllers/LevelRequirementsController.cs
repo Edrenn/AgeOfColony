@@ -18,7 +18,8 @@ namespace AgeOfColony.Controllers
         // GET: LevelRequirements
         public async Task<ActionResult> Index()
         {
-            return View(await db.LevelRequirements.ToListAsync());
+            var levelRequirement = db.LevelRequirements.Include(lr => lr.RequiredResources);
+            return View(await levelRequirement.ToListAsync());
         }
 
         // GET: LevelRequirements/Details/5
@@ -28,7 +29,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LevelRequirement levelRequirement = await db.LevelRequirements.FindAsync(id);
+            LevelRequirement levelRequirement = await db.LevelRequirements.Include(lr => lr.RequiredResources).FirstAsync();
             if (levelRequirement == null)
             {
                 return HttpNotFound();
@@ -39,6 +40,17 @@ namespace AgeOfColony.Controllers
         // GET: LevelRequirements/Create
         public ActionResult Create()
         {
+            List<SelectListItem> sliList = new List<SelectListItem>();
+            foreach (var item in db.CollectedResources.Include(cr => cr.Resource))
+            {
+                sliList.Add(new SelectListItem()
+                {
+                    Selected = false,
+                    Text = item.Quantity + "," + item.Resource.Name,
+                    Value = item.Id.ToString()
+                });
+            }
+            ViewBag.CollectedResourcesList = sliList;
             return View();
         }
 
@@ -47,10 +59,11 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id")] LevelRequirement levelRequirement)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Level")] LevelRequirement levelRequirement,List<int> requiredResources)
         {
             if (ModelState.IsValid)
             {
+                levelRequirement.RequiredResources = await db.CollectedResources.Where(cr => requiredResources.Contains(cr.Id)).ToListAsync();
                 db.LevelRequirements.Add(levelRequirement);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -66,7 +79,7 @@ namespace AgeOfColony.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LevelRequirement levelRequirement = await db.LevelRequirements.FindAsync(id);
+            LevelRequirement levelRequirement = await db.LevelRequirements.Include(lr => lr.RequiredResources).FirstAsync();
             if (levelRequirement == null)
             {
                 return HttpNotFound();
@@ -79,11 +92,17 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id")] LevelRequirement levelRequirement)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Level")] LevelRequirement levelRequirement, List<int> collectedResources)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(levelRequirement).State = EntityState.Modified;
+                LevelRequirement realLR = await db.LevelRequirements.Include(lr => lr.RequiredResources).Where(lr => lr.Id == levelRequirement.Id).FirstAsync();
+                foreach (CollectedResource cr in levelRequirement.RequiredResources)
+                {
+                    db.CollectedResources.Attach(cr);
+                }
+                db.Entry(realLR).CurrentValues.SetValues(levelRequirement);
+                realLR.RequiredResources = await db.CollectedResources.Include(r => r.Resource).Where(r => collectedResources.Contains(r.Id)).ToListAsync();
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

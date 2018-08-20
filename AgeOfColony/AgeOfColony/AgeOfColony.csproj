@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\AgeOfColony.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -338,11 +339,6 @@
     <Content Include="Views\HarvestBuildings\Details.cshtml" />
     <Content Include="Views\HarvestBuildings\Edit.cshtml" />
     <Content Include="Views\HarvestBuildings\Index.cshtml" />
-    <Content Include="Views\LevelRequirements\Create.cshtml" />
-    <Content Include="Views\LevelRequirements\Delete.cshtml" />
-    <Content Include="Views\LevelRequirements\Details.cshtml" />
-    <Content Include="Views\LevelRequirements\Edit.cshtml" />
-    <Content Include="Views\LevelRequirements\Index.cshtml" />
     <Content Include="Views\MainBuildings\Create.cshtml" />
     <Content Include="Views\MainBuildings\Delete.cshtml" />
     <Content Include="Views\MainBuildings\Details.cshtml" />
@@ -398,6 +394,11 @@
     <Content Include="Views\CollectedResources\Details.cshtml" />
     <Content Include="Views\CollectedResources\Edit.cshtml" />
     <Content Include="Views\CollectedResources\Index.cshtml" />
+    <Content Include="Views\LevelRequirements\Create.cshtml" />
+    <Content Include="Views\LevelRequirements\Delete.cshtml" />
+    <Content Include="Views\LevelRequirements\Details.cshtml" />
+    <Content Include="Views\LevelRequirements\Edit.cshtml" />
+    <Content Include="Views\LevelRequirements\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
