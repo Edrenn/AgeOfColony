@@ -8,6 +8,7 @@ namespace AgeOfColony.Models
 {
     public class Player : BaseObject
     {
+        public string LoginId { get; set; }
         public Game TheGame { get; set; }
         public String Username { get; set; }
     }

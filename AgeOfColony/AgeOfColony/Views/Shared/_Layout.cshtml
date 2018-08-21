@@ -70,42 +70,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script>
-        $(document).ready(
-            function updateResources() {
-                $.ajax({
-                    type: 'GET',
-                    datatype: 'json',
-                    url: '@Url.Action("GetCollectedResources", "Gameplay")',
-
-                    success: function (data) {
-                        $('#DivResourceBar').html(data.toString());
-                    },
-
-                    complete: function () {
-                        setTimeout(updateResources, 5000);
-                    }
-                });
-            }
-        )
-        function changeBuildingView_onclick(id) {
-            $.post('@Url.Action("ChangeBuildlingView", "Gameplay")', { buildingId: id }, function (data) {
-                $('#DivDetail').html(data.toString());
-
-
-                }).fail(function () {
-                alert("Failed");
-            });
-        }
-
-        function buyHuman_onclick() {
-            $.post('@Url.Action("BuyHuman", "Gameplay")', function () {
-
-
-            });
-        }
-
-    </script>
 
 </body>
 </html>

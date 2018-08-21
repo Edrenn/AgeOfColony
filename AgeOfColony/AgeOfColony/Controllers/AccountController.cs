@@ -80,6 +80,9 @@ namespace AgeOfColony.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
+
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -167,8 +170,10 @@ namespace AgeOfColony.Controllers
 					// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 					//Assign Role to user Here   
 					await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-					//Ends Here 
-					return RedirectToAction("Index", "Users");
+                    //Ends Here 
+                    GameModel gm = new GameModel();
+                    await gm.CreateNewGame(user.Id, user.UserName);
+					return RedirectToAction("Index", "Gameplay");
 				}
 				AddErrors(result);
             }

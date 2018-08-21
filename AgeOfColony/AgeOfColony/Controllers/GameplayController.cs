@@ -19,8 +19,7 @@ namespace AgeOfColony.Controllers
                 if (currentGame == null)
                 {
                     GameModel gm = new GameModel();
-                    currentGame = gm.GetNewGameWithoutPersisting();
-                    LaunchAllProduction();
+                    currentGame = new Game();
                 }
                 return currentGame;
             }

@@ -14,7 +14,7 @@ namespace AgeOfColony.Models
         {
         }
 
-        public async Task<Game> GetNewGame()
+        public async Task<Game> CreateNewGame(string id, string username)
         {
 
             #region Resources
@@ -248,8 +248,19 @@ namespace AgeOfColony.Models
             allBuildings.Add(mainBuilding);
             #endregion
             #endregion
-            
-            return new Game(allBuildings,allCollectedResources);
+
+            Game newGame = new Game(allBuildings, allCollectedResources);
+            db.Games.Add(newGame);
+            await db.SaveChangesAsync();
+
+            Player p = new Player();
+            p.LoginId = id;
+            p.TheGame = newGame;
+            p.Username = username;
+            db.Players.Add(p);
+            await db.SaveChangesAsync();
+
+            return p.TheGame;
         }
 
 
