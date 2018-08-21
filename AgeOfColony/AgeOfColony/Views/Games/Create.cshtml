@@ -1,4 +1,5 @@
-﻿@model AgeOfColony.Models.Game
+﻿@using AgeOfColony.Models;
+@model AgeOfColony.Models.Game
 
 @{
     ViewBag.Title = "Create";
@@ -10,21 +11,33 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Game</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
         <div class="form-group">
-            @Html.LabelFor(model => model.AllBuildings, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AllBuildings, "Building", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AllBuildings, new { htmlAttributes = new { @class = "form-control" } })
+                @foreach (Building item in ViewBag.BuildingList)
+                {
+                    <div class="col-md-10">
+                        <input name="build" type="checkbox" value="@item.Id" /><label>@item.Name</label>
+                    </div>
+                }
                 @Html.ValidationMessageFor(model => model.AllBuildings, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
 
-    
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 }
 
 <div>

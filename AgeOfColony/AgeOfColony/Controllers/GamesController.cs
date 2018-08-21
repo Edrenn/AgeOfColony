@@ -18,7 +18,9 @@ namespace AgeOfColony.Controllers
         // GET: Games
         public async Task<ActionResult> Index()
         {
-            return View(await db.Games.ToListAsync());
+            var games = await db.Games.Include(lr => lr.AllBuildings).Include(p => p.AllRessources).ToListAsync();
+            
+            return View(games);
         }
 
         // GET: Games/Details/5
@@ -39,6 +41,11 @@ namespace AgeOfColony.Controllers
         // GET: Games/Create
         public ActionResult Create()
         {
+            List<Building> buildings = new List<Building>();
+            buildings.AddRange(db.HarvestBuildings.Where(r => r.ParentGame == null));
+            buildings.AddRange(db.MainBuildings.Where(r => r.ParentGame == null));
+            buildings.AddRange(db.StorageBuildings.Where(r => r.ParentGame == null));
+            ViewBag.BuildingList = buildings;
             return View();
         }
 
@@ -47,18 +54,26 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id")] Game game)
+        public async Task<ActionResult> Create([Bind(Include = "Id")] Game game, string[] build)
         {
             if (ModelState.IsValid)
             {
-                List<Building> buildings = new List<Building>();
-                buildings.AddRange(db.HarvestBuildings.Where(r => r.ParentGame == null));
-                buildings.AddRange(db.MainBuildings.Where(r => r.ParentGame == null));
-                buildings.AddRange(db.StorageBuildings.Where(r => r.ParentGame == null));
-                game.AllBuildings = buildings;
+                List<int> buildings = new List<int>();
+                foreach (string item in build)
+                {
+                    int leOut = 0;
+                    if (Int32.TryParse(item, out leOut))
+                    {
+                        buildings.Add(leOut);
+                    }
+                }
+                List<Building> builds = new List<Building>();
+                builds.AddRange(await db.HarvestBuildings.Where(r => buildings.Contains(r.Id)).ToListAsync());
+                builds.AddRange(await db.MainBuildings.Where(r => buildings.Contains(r.Id)).ToListAsync());
+                builds.AddRange(await db.StorageBuildings.Where(r => buildings.Contains(r.Id)).ToListAsync());
+                game.AllBuildings = builds;
                 db.Games.Add(game);
                 await db.SaveChangesAsync();
-                ViewBag.BuildingList = buildings;
                 return RedirectToAction("Index");
             }
             
