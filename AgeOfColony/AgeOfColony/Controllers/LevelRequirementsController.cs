@@ -73,6 +73,7 @@ namespace AgeOfColony.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Level")] LevelRequirement levelRequirement, string[] resource)
         {
+            ViewBag.CollectedResourcesList = db.CollectedResources.Include(cr => cr.Resource).ToList();
             if (ModelState.IsValid)
             {
                 List<int> allRequiredResourcesInt = new List<int>();

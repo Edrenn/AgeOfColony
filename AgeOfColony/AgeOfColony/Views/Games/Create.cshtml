@@ -38,7 +38,7 @@
                 @foreach (CollectedResource item in ViewBag.ResourcesList)
                 {
                     <div class="col-md-10">
-                        <input name="resource" type="checkbox" value="@item.Id" /><label>@item.ToString()</label>
+                        <input name="resource" type="checkbox" value="@item.Id" /><label>@item.Resource.Name</label>
                     </div>
                 }
                 @Html.ValidationMessageFor(model => model.AllRessources, "", new { @class = "text-danger" })

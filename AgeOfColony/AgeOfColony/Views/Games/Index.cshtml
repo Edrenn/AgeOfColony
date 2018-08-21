@@ -33,11 +33,12 @@
             @{
                 string allBuildings = "";
             }
-            @if(item.AllBuildings != null){
-            foreach (var rr in item.AllBuildings)
+            @if(item.AllBuildings != null)
             {
-                allBuildings += item.AllBuildings.Last() == rr ? rr.Name : rr.Name + ",";
-            }
+                foreach (var rr in item.AllBuildings)
+                {
+                    allBuildings += item.AllBuildings.Last() == rr ? rr.Name : rr.Name + ",";
+                }
             }
             <td>
                 @allBuildings
@@ -45,11 +46,11 @@
             @{
                 string allResources = "";
             }
-            @if (item.AllRessources != null)
+            @if(item.AllRessources != null)
             {
-                foreach (var rr in item.AllRessources)
+                foreach (var ar in item.AllRessources)
                 {
-                    allResources += item.AllRessources.Last() == rr ? rr.Resource.Name : rr.Resource.Name + ",";
+                    allResources += item.AllRessources.Last() == ar ? ar.ResourceToString() : ar.ResourceToString() + ",";
                 }
             }
             <td>

@@ -33,7 +33,7 @@ namespace AgeOfColony.Models
 
         public string RareResourceToString()
         {
-            return Quantity + "," + Resource.RareVersion.Name;
+            return RareQuantity + "," + Resource.RareVersion.Name;
         }
     }
 }
