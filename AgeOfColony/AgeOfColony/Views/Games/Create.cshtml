@@ -1,4 +1,5 @@
-﻿@model AgeOfColony.Models.Game
+﻿@using AgeOfColony.Models;
+@model AgeOfColony.Models.Game
 
 @{
     ViewBag.Title = "Create";
@@ -10,11 +11,40 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Game</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AllBuildings, "Building", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (Building item in ViewBag.BuildingList)
+                {
+                    <div class="col-md-10">
+                        <input name="build" type="checkbox" value="@item.Id" /><label>@item.Name</label>
+                    </div>
+                }
+                @Html.ValidationMessageFor(model => model.AllBuildings, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AllRessources, "Resource", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (CollectedResource item in ViewBag.ResourcesList)
+                {
+                    <div class="col-md-10">
+                        <input name="resource" type="checkbox" value="@item.Id" /><label>@item.ToString()</label>
+                    </div>
+                }
+                @Html.ValidationMessageFor(model => model.AllRessources, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

@@ -26,6 +26,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.StorageCoef, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StorageCoef, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StorageCoef, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.HarvestTime, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.HarvestTime, new { htmlAttributes = new { @class = "form-control" } })
@@ -42,6 +50,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.HarvestQuantityCoef, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HarvestQuantityCoef, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HarvestQuantityCoef, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.CurrentPeople, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.CurrentPeople, new { htmlAttributes = new { @class = "form-control" } })
@@ -54,6 +70,14 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.MaxPeople, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.MaxPeople, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaxPeopleCoef, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MaxPeopleCoef, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaxPeopleCoef, "", new { @class = "text-danger" })
         </div>
     </div>
 

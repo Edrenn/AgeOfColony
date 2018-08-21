@@ -16,6 +16,7 @@ namespace AgeOfColony.Models
         public int MaxLevel { get; set; }
         public List<LevelRequirement> Requirement { get; set; }
         public bool isBought { get; set; }
+        public Game ParentGame { get; set; }
 
         protected Building(string name, int level, int maxLevel, List<LevelRequirement> requirement, bool isBought)
         {

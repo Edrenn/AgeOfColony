@@ -50,8 +50,9 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HarvestSpeed,Name,Level,MaxLevel,ResourceId,isBought,ImgUrl")] MainBuilding mainBuilding, int TypeResource)
+        public async Task<ActionResult> Create([Bind(Include = "HarvestSpeed,HarvestSpeedCoef,Name,Level,MaxLevel,isBought,ImgUrl")] MainBuilding mainBuilding, int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 mainBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
@@ -84,8 +85,9 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,HarvestSpeed,Name,Level,MaxLevel,isBought,ImgUrl")] MainBuilding mainBuilding, int TypeResource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,HarvestSpeed,HarvestSpeedCoef,Name,Level,MaxLevel,isBought,ImgUrl")] MainBuilding mainBuilding, int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 MainBuilding realHB = await db.MainBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == mainBuilding.Id).FirstAsync();
