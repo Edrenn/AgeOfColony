@@ -46,8 +46,7 @@ namespace AgeOfColony.Controllers
             buildings.AddRange(db.MainBuildings.Where(r => r.ParentGame == null));
             buildings.AddRange(db.StorageBuildings.Where(r => r.ParentGame == null));
             ViewBag.BuildingList = buildings;
-            List<CollectedResource> resources = new List<CollectedResource>();
-            resources = ViewBag.ResourcesList = db.CollectedResources.Include(cr => cr.Resource).ToList();
+            ViewBag.ResourcesList = db.CollectedResources.Include(cr => cr.Resource).ToList();
             return View();
         }
 
@@ -69,6 +68,7 @@ namespace AgeOfColony.Controllers
                         buildings.Add(leOut);
                     }
                 }
+                ViewBag.ResourcesList = db.CollectedResources.Include(cr => cr.Resource).ToList();
                 List<Building> builds = new List<Building>();
                 builds.AddRange(await db.HarvestBuildings.Where(r => buildings.Contains(r.Id)).ToListAsync());
                 builds.AddRange(await db.MainBuildings.Where(r => buildings.Contains(r.Id)).ToListAsync());
