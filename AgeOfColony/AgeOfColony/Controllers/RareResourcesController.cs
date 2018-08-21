@@ -11,6 +11,7 @@ using AgeOfColony.Models;
 
 namespace AgeOfColony.Controllers
 {
+    [Authorize(Roles = RoleType.Admin)]
     public class RareResourcesController : Controller
     {
         private DBManager db = new DBManager();

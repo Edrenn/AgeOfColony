@@ -11,7 +11,7 @@ using static AgeOfColony.ApplicationUserManager;
 
 namespace AgeOfColony.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = RoleType.Admin)]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

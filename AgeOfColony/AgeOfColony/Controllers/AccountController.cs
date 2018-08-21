@@ -9,10 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AgeOfColony.Models;
+using System.Runtime.Caching;
 
 namespace AgeOfColony.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -170,13 +170,12 @@ namespace AgeOfColony.Controllers
 					//Ends Here 
 					return RedirectToAction("Index", "Users");
 				}
-				ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-										  .ToList(), "Name", "Name");
 				AddErrors(result);
-			}
-
-			// If we got this far, something failed, redisplay form
-			return View(model);
+            }
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
+                                      .ToList(), "Name", "Name");
+            // If we got this far, something failed, redisplay form
+            return View(model);
 		}
 
         //

@@ -1,0 +1,25 @@
+﻿@using AgeOfColony.Models
+@model  Game
+
+<h1 style=" color:white;">Navigation</h1>
+<label>Forum</label>
+<hr />
+@{
+
+    MainBuilding mb = (MainBuilding)Model.AllBuildings.Where(b => b is MainBuilding).First();
+    <div><a onclick="changeBuildingView_onclick(@mb.Id)">@mb.Name</a></div>
+}
+<label>Producteurs</label>
+<hr />
+@foreach (Building item in Model.AllBuildings.Where(b => b is HarvestBuilding).ToList())
+{
+    <div><a onclick="changeBuildingView_onclick(@item.Id)">@item.Name</a></div>
+}
+<label>Stockage</label>
+<hr />
+@foreach (Building item in Model.AllBuildings.Where(b => b is StorageBuilding).ToList())
+{
+    <div><a onclick="changeBuildingView_onclick(@item.Id)">@item.Name</a></div>
+}
+<div><a onclick="buyHuman_onclick()">HarvestBuildings</a></div>
+<div><a>StorageBuildings</a></div>

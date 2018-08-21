@@ -11,8 +11,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AgeOfColony.Controllers
 {
-	[Authorize]
-	public class UsersController : Controller
+    [Authorize(Roles = RoleType.Admin)]
+    public class UsersController : Controller
     {
 		// GET: Users
 		public Boolean isAdminUser()
@@ -40,10 +40,6 @@ namespace AgeOfColony.Controllers
 			{
 				var user = User.Identity;
 				ViewBag.Name = user.Name;
-				//	ApplicationDbContext context = new ApplicationDbContext();
-				//	var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-				//var s=	UserManager.GetRoles(user.GetUserId());
 				ViewBag.displayMenu = "No";
 
 				if (isAdminUser())

@@ -9,8 +9,8 @@ using AgeOfColony.Models;
 
 namespace AgeOfColony.Controllers
 {
-	[Authorize]
-	public class RoleController : Controller
+    [Authorize(Roles = RoleType.Admin)]
+    public class RoleController : Controller
     {
 		ApplicationDbContext context;
 

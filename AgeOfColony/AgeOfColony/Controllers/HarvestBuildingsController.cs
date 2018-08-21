@@ -51,6 +51,7 @@ namespace AgeOfColony.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,Name,Level,MaxLevel,isBought,ImgUrl")] HarvestBuilding harvestBuilding,int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using AgeOfColony.Models
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -9,7 +10,8 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<body>
+<body style="background-image:url(http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/2w/x9/p02wx97j.jpg); background-size:cover">
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -18,46 +20,92 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nom de l'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Age Of Colony", "Index", "Gameplay", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                else
+                {
+                    @Html.ActionLink("Age Of Colony", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
             </div>
             <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole(RoleType.Admin))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("CollectedResources", "Index", "CollectedResources", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Games", "Index", "Games", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("LevelRequirements", "Index", "LevelRequirements", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Players", "Index", "Players", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Resources", "Index", "Resources", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("RareResources", "Index", "RareResources", new { area = "" }, null)</li>
+                        </ul>
+                        <!-- Split button -->
+                        <div class="btn-group">
+                            <!-- here is the asp.net button to make post back -->
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("HarvestBuildings", "Index", "HarvestBuildings", new { area = "" }, null)</li>
+                                <li>@Html.ActionLink("MainBuildings", "Index", "MainBuildings", new { area = "" }, null)</li>
+                                <li>@Html.ActionLink("StorageBuildings", "Index", "StorageBuildings", new { area = "" }, null)</li>
+                            </ul>
+                        </div>
 
-                <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("CollectedResources", "Index", "CollectedResources", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Games", "Index", "Games", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("LevelRequirements", "Index", "LevelRequirements", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Players", "Index", "Players", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Resources", "Index", "Resources", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("RareResources", "Index", "RareResources", new { area = "" }, null)</li>
-        </ul>
-                <!-- Split button -->
-                <div class="btn-group">
-                    <!-- here is the asp.net button to make post back -->
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("HarvestBuildings", "Index", "HarvestBuildings", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("MainBuildings", "Index", "MainBuildings", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("StorageBuildings", "Index", "StorageBuildings", new { area = "" }, null)</li>
-                    </ul>
-                </div>
+                    }
+                }
 
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(
+            function updateResources() {
+                $.ajax({
+                    type: 'GET',
+                    datatype: 'json',
+                    url: '@Url.Action("GetCollectedResources", "Gameplay")',
+
+                    success: function (data) {
+                        $('#DivResourceBar').html(data.toString());
+                    },
+
+                    complete: function () {
+                        setTimeout(updateResources, 5000);
+                    }
+                });
+            }
+        )
+        function changeBuildingView_onclick(id) {
+            $.post('@Url.Action("ChangeBuildlingView", "Gameplay")', { buildingId: id }, function (data) {
+                $('#DivDetail').html(data.toString());
+
+
+                }).fail(function () {
+                alert("Failed");
+            });
+        }
+
+        function buyHuman_onclick() {
+            $.post('@Url.Action("BuyHuman", "Gameplay")', function () {
+
+
+            });
+        }
+
+    </script>
+
 </body>
 </html>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgeOfColony.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,7 +8,7 @@ using System.Web.Http;
 
 namespace AgeOfColony.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = RoleType.Admin)]
     public class ValuesController : ApiController
     {
         // GET api/values

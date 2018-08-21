@@ -1,0 +1,17 @@
+﻿@using AgeOfColony.Models
+@model Game
+
+@{
+    ViewBag.Title = "GAME VIEW";
+}
+<div id="DivResourceBar">
+    @Html.Partial("_ResourceBar", Model.AllRessources)
+</div>
+
+    <div class="col-md-3" style="background-color: #333333; margin-top: 90px; padding-bottom: 30px;">
+        @Html.Partial("_NavigationMenu")
+    </div>
+    <div id="DivDetail" class="col-md-8" style="background-color: #333333; margin-top: 90px; margin-left: 90px;">
+        @*@Html.Partial("Buildings/_MainBuilding")*@
+        <img src="http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/2w/x9/p02wx97j.jpg" />
+    </div>
