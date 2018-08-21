@@ -49,8 +49,9 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,isBought,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
+        public async Task<ActionResult> Create([Bind(Include = "MaxStorage,MaxStorageCoef,Name,Level,MaxLevel,isBought,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 storageBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
@@ -83,8 +84,9 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,Name,Level,MaxLevel,isBought,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,MaxStorageCoef,Name,Level,MaxLevel,isBought,ImgUrl")] StorageBuilding storageBuilding,int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 StorageBuilding realSB = await db.StorageBuildings.Include(sb => sb.TypeResource).Where(sb => sb.Id == storageBuilding.Id).FirstAsync();

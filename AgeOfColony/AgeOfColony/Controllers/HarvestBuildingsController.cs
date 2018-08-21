@@ -49,8 +49,9 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,Name,Level,MaxLevel,isBought,ImgUrl")] HarvestBuilding harvestBuilding,int TypeResource)
+        public async Task<ActionResult> Create([Bind(Include = "MaxStorage,StorageCoef,HarvestTime,HarvestQuantity,HarvestQuantityCoef,CurrentPeople,MaxPeople,MaxPeopleCoef,Name,Level,MaxLevel,isBought,ImgUrl")] HarvestBuilding harvestBuilding,int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 harvestBuilding.TypeResource = db.Resources.Where(r => r.Id == TypeResource).First();
@@ -83,8 +84,9 @@ namespace AgeOfColony.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,HarvestTime,HarvestQuantity,CurrentPeople,MaxPeople,ResourceId,Name,Level,MaxLevel,isBought,ImgUrl")] HarvestBuilding harvestBuilding, int TypeResource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,MaxStorage,StorageCoef,HarvestTime,HarvestQuantity,HarvestQuantityCoef,CurrentPeople,MaxPeople,MaxPeopleCoef,Name,Level,MaxLevel,isBought,ImgUrl")] HarvestBuilding harvestBuilding, int TypeResource)
         {
+            ViewBag.TypeResource = new SelectList(db.Resources, "Id", "Name");
             if (ModelState.IsValid)
             {
                 HarvestBuilding realHB = await db.HarvestBuildings.Include(hb => hb.TypeResource).Where(hb => hb.Id == harvestBuilding.Id).FirstAsync();

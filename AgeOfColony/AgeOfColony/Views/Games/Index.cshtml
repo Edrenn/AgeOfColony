@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.AllBuildings)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllRessources)
+        </th>
         
         <th></th>
     </tr>
@@ -38,6 +41,19 @@
             }
             <td>
                 @allBuildings
+            </td>
+            @{
+                string allResources = "";
+            }
+            @if (item.AllRessources != null)
+            {
+                foreach (var rr in item.AllRessources)
+                {
+                    allResources += item.AllRessources.Last() == rr ? rr.Resource.Name : rr.Resource.Name + ",";
+                }
+            }
+            <td>
+                @allResources
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

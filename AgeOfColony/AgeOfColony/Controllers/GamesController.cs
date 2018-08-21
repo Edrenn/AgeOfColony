@@ -19,7 +19,6 @@ namespace AgeOfColony.Controllers
         public async Task<ActionResult> Index()
         {
             var games = await db.Games.Include(lr => lr.AllBuildings).Include(p => p.AllRessources).ToListAsync();
-            
             return View(games);
         }
 
@@ -46,6 +45,8 @@ namespace AgeOfColony.Controllers
             buildings.AddRange(db.MainBuildings.Where(r => r.ParentGame == null));
             buildings.AddRange(db.StorageBuildings.Where(r => r.ParentGame == null));
             ViewBag.BuildingList = buildings;
+            List<CollectedResource> resources = new List<CollectedResource>();
+            resources = ViewBag.ResourcesList = db.CollectedResources.Include(cr => cr.Resource).ToList();
             return View();
         }
 
